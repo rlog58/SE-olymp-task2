@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class NoteController {
 
-    private Database database = new Database();
+    private Database database = new Database(10);
 
     @PostMapping("/notes")
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,7 +46,6 @@ public class NoteController {
     public void delete(@PathVariable("id") Integer id) {
         database.delete(id);
     }
-
 
 
 }

@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Database {
-    public static HashMap<Integer, Note> map = new HashMap<>();
-    public static Integer index = 1;
+    private HashMap<Integer, Note> map = new HashMap<>();
+    private Integer index = 1;
 
-    private DatabaseProperties databaseProperties;
+    private final Integer titleLength;
+
+    public Database(Integer titleLength){
+        this.titleLength = titleLength;
+    }
 
     public Note add(NoteDto noteDto) {
         Note note = DtoToEntity(index, noteDto);
@@ -45,7 +49,7 @@ public class Database {
         if (note.getTitle() == null) {
             Note newNote = note;
             Integer len = note.getContent().length();
-            newNote.setTitle(note.getContent().substring(0, Math.min(len, databaseProperties.getTitleLength())));
+            newNote.setTitle(note.getContent().substring(0, Math.min(len, titleLength)));
 
             return newNote;
         } else {
