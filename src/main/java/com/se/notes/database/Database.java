@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Database {
+    private final Integer titleLength;
     private HashMap<Integer, Note> map = new HashMap<>();
     private Integer index = 1;
 
-    private final Integer titleLength;
-
-    public Database(Integer titleLength){
+    public Database(Integer titleLength) {
         this.titleLength = titleLength;
     }
 
@@ -39,6 +38,10 @@ public class Database {
 
     public void delete(Integer id) {
         map.remove(id);
+    }
+
+    public List<Note> query(String str) {
+        return map.values().stream().filter(note -> (note.getTitle() != null && note.getTitle().equals(str)) || note.getContent().equals(str)).map(this::addTitle).collect(Collectors.toList());
     }
 
     private Note DtoToEntity(Integer id, NoteDto noteDto) {

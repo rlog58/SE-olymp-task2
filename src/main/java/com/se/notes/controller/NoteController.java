@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @CrossOrigin
@@ -25,8 +26,12 @@ public class NoteController {
 
     @GetMapping("/notes")
     @ResponseStatus(HttpStatus.OK)
-    public List<Note> getAll() {
-        return database.getAll();
+    public List<Note> getAll(@RequestParam("query") Optional<String> str ) {
+        if (str.isPresent()){
+            return database.query(str.get());
+        } else {
+            return database.getAll();
+        }
     }
 
     @GetMapping("/notes/{id}")
