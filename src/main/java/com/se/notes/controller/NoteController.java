@@ -1,6 +1,6 @@
 package com.se.notes.controller;
 
-import com.se.notes.model.Database;
+import com.se.notes.database.Database;
 import com.se.notes.model.Note;
 import com.se.notes.model.NoteDto;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class NoteController {
 
-    private Database database;
+    private Database database = new Database();
 
     @PostMapping("/notes")
     @ResponseStatus(HttpStatus.CREATED)
